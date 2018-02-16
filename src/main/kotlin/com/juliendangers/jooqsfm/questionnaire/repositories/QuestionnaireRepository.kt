@@ -110,10 +110,10 @@ class QuestionnaireRepository (val dsl: DSLContext) {
         val jdbcMapper3 = JdbcMapperFactory
                 .newInstance()
                 .addKeys(QUESTIONNAIRE.IDQUESTIONNAIRE.name)
-                .newMapper(object : TypeReference<Tuple2<QuestionnaireRecord, List<QuestionRecord>>>() {})
+                .newMapper(object : TypeReference<Pair<QuestionnaireRecord, List<QuestionRecord>>>() {})
 
-        val resultSetMapper3 = { result: Tuple2<QuestionnaireRecord, List<QuestionRecord>> ->
-            QuestionnaireDto.fromRecord(result.v1, result.v2.map { it ->
+        val resultSetMapper3 = { result: Pair<QuestionnaireRecord, List<QuestionRecord>> ->
+            QuestionnaireDto.fromRecord(result.first, result.second.map { it ->
                 QuestionDto.fromRecord(it,
                         null,
                         emptyList())
